@@ -1,6 +1,8 @@
 package com.droege.fitnesstracker.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user", schema = "daten")
@@ -25,6 +27,10 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    //@JoinColumn(name = "user_id")
+    private List<Workout> workouts = new ArrayList<>();
 
     public User() {
     }
@@ -75,5 +81,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Workout> getWorkouts() {
+        return workouts;
+    }
+
+    public void setWorkouts(List<Workout> workouts) {
+        this.workouts = workouts;
     }
 }

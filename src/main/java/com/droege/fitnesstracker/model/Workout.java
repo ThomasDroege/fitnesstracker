@@ -1,25 +1,28 @@
 package com.droege.fitnesstracker.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "workout", schema = "daten")
 public class Workout {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long workout_id;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+/*
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private User user;
 
+
+    private User user;
+*/
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 
     private LocalDateTime time_started;
