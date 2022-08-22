@@ -8,11 +8,13 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "set", schema = "daten")
 public class Set {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long set_id;
+    @Column(name = "set_id")
+    private Long setId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "workout_id", nullable = false)
@@ -20,14 +22,16 @@ public class Set {
     @JsonIgnore
     private Workout workout;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "exercise_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Exercise exercise;
 
+    @Column(name = "repititions")
     private Long repititions;
 
+    @Column(name = "weight")
     private Float weight;
 
 
@@ -40,12 +44,12 @@ public class Set {
     public Set() {
     }
 
-    public Long getSet_id() {
-        return set_id;
+    public Long getSetId() {
+        return setId;
     }
 
-    public void setSet_id(Long set_id) {
-        this.set_id = set_id;
+    public void setSetId(Long setId) {
+        this.setId = setId;
     }
 
     public Workout getWorkout() {

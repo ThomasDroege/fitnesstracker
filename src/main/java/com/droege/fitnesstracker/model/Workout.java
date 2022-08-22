@@ -14,7 +14,7 @@ public class Workout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long workout_id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
