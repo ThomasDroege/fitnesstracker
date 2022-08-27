@@ -8,18 +8,19 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.List;
 
+//Post
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Table(name = "user", schema = "daten")
-public class User {
+public class UserNew {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 
     @Column(name = "user_name")
     private String userName;
@@ -40,5 +41,4 @@ public class User {
     // name = name in workouts table, referencedColumnName = name in user table
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private List<Workout> workouts;
-
 }

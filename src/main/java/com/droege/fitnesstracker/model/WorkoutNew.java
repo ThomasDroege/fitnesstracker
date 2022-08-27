@@ -1,20 +1,25 @@
 package com.droege.fitnesstracker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+//Comment
 @Entity
 @Data //Getter and Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Table(name = "workout", schema = "daten")
-public class Workout {
+public class WorkoutNew {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,25 +32,11 @@ public class Workout {
 
     @Column(name = "time_ended")
     private LocalDateTime timeEnded;
-/*
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-
-
     private User user;
-*/
-    @ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User user;
-/*
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-*/
-
-
-
 
 }

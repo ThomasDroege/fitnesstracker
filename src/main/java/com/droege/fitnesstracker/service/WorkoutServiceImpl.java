@@ -1,5 +1,6 @@
 package com.droege.fitnesstracker.service;
 
+import com.droege.fitnesstracker.model.User;
 import com.droege.fitnesstracker.model.Workout;
 import com.droege.fitnesstracker.repository.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,11 @@ public class WorkoutServiceImpl implements WorkoutService{
 
     @Override
     public Workout saveWorkout(Workout workout) {
+       /* if(workout.getUser() == null) {
+            workout.setUser(new User());
+        }
+
+        */
         return workoutRepository.save(workout);
     }
 
