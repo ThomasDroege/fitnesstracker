@@ -1,12 +1,23 @@
 package com.droege.fitnesstracker.service;
 
 import com.droege.fitnesstracker.model.Set;
+import com.droege.fitnesstracker.repository.SetRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface SetService {
+@Service
+public class SetService {
 
-    public Set saveSet(Set set);
+    @Autowired
+    private SetRepository setRepository;
 
-    public List<Set> getAllSets();
+    public Set saveSet(Set set) {
+        return setRepository.save(set);
+    }
+
+    public List<Set> getAllSets() {
+        return setRepository.findAll();
+    }
 }

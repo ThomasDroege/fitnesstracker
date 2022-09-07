@@ -19,7 +19,7 @@ public class Workout {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "workout_id")
-    private Long workoutId;
+    private Integer id;
 
 
     @Column(name = "time_started")
@@ -27,25 +27,13 @@ public class Workout {
 
     @Column(name = "time_ended")
     private LocalDateTime timeEnded;
-/*
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
 
 
-    private User user;
-*/
     @ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id" )
+    //@JoinColumn(name  = "user_id")
+    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "workout_id")
     private User user;
-/*
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-*/
-
-
 
 
 }

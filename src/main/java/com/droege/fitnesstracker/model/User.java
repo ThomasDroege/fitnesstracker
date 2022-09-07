@@ -19,7 +19,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Integer userId;
+    private Integer id;
 
     @Column(name = "user_name")
     private String userName;
@@ -36,9 +36,5 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(targetEntity = Workout.class, cascade = CascadeType.ALL)
-    // name = name in workouts table, referencedColumnName = name in user table
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private List<Workout> workouts;
 
 }

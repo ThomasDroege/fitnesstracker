@@ -1,12 +1,23 @@
 package com.droege.fitnesstracker.service;
 
 import com.droege.fitnesstracker.model.Exercise;
+import com.droege.fitnesstracker.repository.ExerciseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface ExerciseService {
+@Service
+public class ExerciseService {
 
-    public Exercise saveExercise(Exercise exercise);
+    @Autowired
+    ExerciseRepository exerciseRepository;
 
-    public List<Exercise> getAllExercises();
+    public Exercise saveExercise(Exercise exercise) {
+        return exerciseRepository.save(exercise);
+    }
+
+    public List<Exercise> getAllExercises() {
+        return exerciseRepository.findAll();
+    }
 }
