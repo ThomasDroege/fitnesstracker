@@ -1,15 +1,25 @@
 import './App.css';
 import React from 'react';
-import Appbar from './components/Appbar';
 import Student from './components/User';
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Topbar from './components/topbar/Topbar';
+import Sidebar from './components/sidebar/Sidebar';
+import Workouts from './pages/workouts/Workouts';
+import Home from './pages/home/Home';
 
 function App() {
   return (
-    <div className="App">
-      <Appbar/>
-      <Student/>
-     
-    </div>
+    <Router>
+      <Topbar/>
+      <div className="container">
+        <Sidebar/>
+        <Routes>
+          <Route path="/" element={<Home/>} exact/>
+          <Route path="/workouts" element={<Workouts/>} exact/>
+        </Routes>
+      
+      </div>
+    </Router>
   );
 }
 
