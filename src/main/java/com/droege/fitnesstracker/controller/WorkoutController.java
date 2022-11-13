@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/workout")
+@CrossOrigin
 public class WorkoutController {
 
     @Autowired

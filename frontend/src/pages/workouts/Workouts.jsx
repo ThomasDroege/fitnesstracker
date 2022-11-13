@@ -1,27 +1,47 @@
 import "./workouts.css"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { DataGrid } from '@mui/x-data-grid';
 import {DeleteOutline} from '@material-ui/icons'
 import {userRows} from "../../dummyData"
 import {Link} from "react-router-dom"
 
 export default function Workouts() {
-  const [data,setData] = useState(userRows)
-  const handleDelete = (id)=>{
-    setData(data.filter(item=>item.id !== id))
-  }
-const columns = [
-  { field: 'id', headerName: 'ID', width: 90 },
-  { field: 'userId', headerName: 'UserName', width: 100 },
-  { field: 'workoutName', headerName: 'WorkoutName', width: 150 },
-  { field: 'date', headerName: 'Date', width: 150 },
-  { field: 'duration', headerName: 'Duration', type: 'number', width: 120 }
-];
+  const [isLoaded,setIsLoaded] = useState(false);
+  const [id, setId]=useState('');
+  const [timeStarted, setTimeStarted]=useState('');
+  const [workoutName, setWorkoutName]=useState('');
 
+
+  const [workouts, setWorkouts] = useState([]);
+  const workout={id, timeStarted, workoutName}
+
+useEffect(() => {
+  const axios = require('axios').default;
+  axios
+  .get('http://localhost:8080/workout/getAll')
+  .then((response) => {
+    setIsLoaded(true);
+    console.log(response.data);
+    
+    response.data.forEach(oneWorkout => {
+       workout.id = oneWorkout.id
+       workout.timeStarted = oneWorkout.timeStarted
+       workout.workoutName = oneWorkout.id
+    });
+    setWorkouts(response.data);
+  });
+}, [])
+
+const columns = [
+  {field: "id", headerName: "ID", width: 90},
+  {field: "timeStarted", headerName: "TimeStarted", width: 200},
+  {field: "workoutName", headerName: "WorkoutName", width: 200}
+]
+   
 return (
   <div className="userList">
     <DataGrid
-      rows={data}
+      rows={workouts}
       disableSelectionOnClick
       columns={columns}
       pageSize={8}
