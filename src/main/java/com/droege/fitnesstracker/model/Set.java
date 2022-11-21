@@ -16,10 +16,15 @@ public class Set {
     @Column(name = "set_id")
     private Long setId;
 
+    /*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "workout_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
+
+     */
+    @ManyToOne(targetEntity = Workout.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "workout_id", referencedColumnName = "workout_id")
     private Workout workout;
 
     @ManyToOne(fetch = FetchType.LAZY)
