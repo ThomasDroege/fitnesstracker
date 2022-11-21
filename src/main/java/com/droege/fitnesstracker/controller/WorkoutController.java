@@ -2,6 +2,8 @@ package com.droege.fitnesstracker.controller;
 
 import com.droege.fitnesstracker.exceptionHandling.NotFoundException;
 import com.droege.fitnesstracker.model.Workout;
+import com.droege.fitnesstracker.reponse.WorkoutResponse;
+import com.droege.fitnesstracker.reponse.WorkoutResponses;
 import com.droege.fitnesstracker.repository.WorkoutRepository;
 import com.droege.fitnesstracker.service.UserService;
 import com.droege.fitnesstracker.service.WorkoutService;
@@ -53,8 +55,12 @@ public class WorkoutController {
             return new ArrayList<>();
         }
     }
-
  */
+    @GetMapping("/getAllWithSets")
+    public WorkoutResponses getAllWithSets() {
+        return  workoutService.getAllWorkoutsWithSets();
+    }
+
 
     @GetMapping("/getAll")
     public List<Workout> getAll() {
@@ -66,7 +72,7 @@ public class WorkoutController {
         List<Workout> allWorkouts = workoutService.getAllWorkouts();
         return allWorkouts;
     }
-
+/*
     @PostMapping("/add/{userId}")
     public  ResponseEntity<String> createWorkout(@PathVariable(value = "userId") Integer userId,
                                   @RequestBody Workout workout) {
@@ -82,5 +88,7 @@ public class WorkoutController {
              throw new NotFoundException(error);
          }
     }
+
+ */
 
 }

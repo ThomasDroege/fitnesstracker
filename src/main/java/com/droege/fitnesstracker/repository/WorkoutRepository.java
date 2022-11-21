@@ -14,4 +14,8 @@ public interface WorkoutRepository extends JpaRepository<Workout, Integer> {
             "FROM daten.workout w join daten.user u on u.user_id =w.user_id  where u.user_id = :userId")
     List<Workout> findByUserId(Integer userId);
 
+
+
+
+
 }

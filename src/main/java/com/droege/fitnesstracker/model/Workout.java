@@ -7,6 +7,8 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data //Getter and Setter
@@ -34,6 +36,8 @@ public class Workout {
     //@JoinColumn(name  = "user_id")
     //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "workout_id")
     private User user;
+
+
 
 
 }
