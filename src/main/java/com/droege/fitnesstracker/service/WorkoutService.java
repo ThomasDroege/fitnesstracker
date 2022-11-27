@@ -37,23 +37,27 @@ public class WorkoutService {
     public WorkoutResponses getAllWorkoutsWithSets() {
         List<Set>  sets =  setRepository.findAllWorkoutsWithSets();
 
-
         WorkoutResponses workoutResponses = new WorkoutResponses();
         List<WorkoutResponse> workoutResponseList = new ArrayList<WorkoutResponse>();
         List<SetResponse> setResponses = new ArrayList<SetResponse>();
         WorkoutResponse workoutResponse = new WorkoutResponse();
+
         Integer workoutId = sets.get(0).getWorkout().getId();
+        workoutResponse.setWorkoutId(sets.get(0).getWorkout().getId());
+        workoutResponse.setTimeStarted(sets.get(0).getWorkout().getTimeStarted().toString());
+        workoutResponse.setTimeEnded(sets.get(0).getWorkout().getTimeEnded().toString());
+        workoutResponse.setUserId(sets.get(0).getWorkout().getUser().getId());
 
         for (Set set: sets) {
                 if(set.getWorkout().getId() != workoutId){
-                    workoutResponse.setWorkoutId(set.getWorkout().getId());
-                    workoutResponse.setTimeStarted(set.getWorkout().getTimeStarted().toString());
-                    workoutResponse.setTimeEnded(set.getWorkout().getTimeEnded().toString());
-                    workoutResponse.setUserId(set.getWorkout().getUser().getId());
                     workoutResponse.setSets(setResponses);
                     workoutResponseList.add(workoutResponse);
                     workoutResponse = new WorkoutResponse();
                     setResponses = new ArrayList<SetResponse>();
+                    workoutResponse.setWorkoutId(set.getWorkout().getId());
+                    workoutResponse.setTimeStarted(set.getWorkout().getTimeStarted().toString());
+                    workoutResponse.setTimeEnded(set.getWorkout().getTimeEnded().toString());
+                    workoutResponse.setUserId(set.getWorkout().getUser().getId());
                     workoutId = set.getWorkout().getId();
                 }
 
@@ -66,6 +70,10 @@ public class WorkoutService {
                 setResponse.setTimeEnded(set.getTime_ended().toString());
                 setResponses.add(setResponse);
         }
+        // Fügt das letzte Workout hinzu. Zeile nötig, da es keinen Wechsel der WorkoutId mehr gibt.
+        workoutResponse.setSets(setResponses);
+        workoutResponseList.add(workoutResponse);
+
         workoutResponses.setWorkoutResponses(workoutResponseList);
         return workoutResponses;
     }
