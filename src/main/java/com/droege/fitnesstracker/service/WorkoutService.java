@@ -34,7 +34,8 @@ public class WorkoutService {
         return workoutRepository.findByUserId(userId);
     }
 
-    public WorkoutResponses getAllWorkoutsWithSets() {
+    //ToDo: Workaround mit workoutResponseList vs. WorkoutResponses eleganter lösen
+    public WorkoutResponse[] getAllWorkoutsWithSets() {
         List<Set>  sets =  setRepository.findAllWorkoutsWithSets();
 
         WorkoutResponses workoutResponses = new WorkoutResponses();
@@ -75,7 +76,7 @@ public class WorkoutService {
         workoutResponseList.add(workoutResponse);
 
         workoutResponses.setWorkoutResponses(workoutResponseList);
-        return workoutResponses;
+        return workoutResponses.getWorkoutResponses().toArray(new WorkoutResponse[0]);
     }
 
 }

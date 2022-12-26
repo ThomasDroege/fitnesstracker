@@ -10,32 +10,73 @@ import { couldStartTrivia } from "typescript";
 export default function Workouts() {
   const [isLoaded,setIsLoaded] = useState(false);
   const [workouts, setWorkouts] = useState<Workouts[]>([]);
+  const [WorkoutResponse, setWorkoutResponses] = useState<WorkoutResponse>()
   
 
-interface Workouts{
-  id: string;
-  timeStarted: string;
-  workoutName: string;
-  date: string;
+interface WorkoutResponse{
+  testentry: [];
 }
 
+//ToDo: es wird response.data.workouts nicht gesetzt bzw. response.data.workouts = undefined
+interface Workouts{
+  workoutId: number;
+  timeStarted: String;
+  timeEnded: String;
+  userId: number;
+
+}
 
 useEffect(() => {
-  axios.get<Workouts[]>('http://localhost:8080/workout/getAll')
+  axios.get<WorkoutResponse>('http://localhost:8080/workout/getAllWithSets')
   .then(response => {
-    console.log(response.data);
+    var array = [];
+    array.push(response)
+   
+   //setWorkouts(response.data.workouts)
+  // var obj2: Workouts[] = response.data.workouts
+  // console.log(obj2)
+  
     setIsLoaded(true);
-    response.data.forEach(test => {
-      test.date = test.timeStarted.substring(0,10);
-      test.timeStarted = test.timeStarted.substring(11,16);
-      test.workoutName = "Chest/Triceps";
+    //console.log(response.data.workouts)
+   // console.log(typeof(response.data.workouts))
+    
+    response.data.testentry.forEach(test => {
+      console.log(test)
+      //test.timeStarted = test.timeStarted.substring(11,16);
+      console.log("Test")
     })
-    setWorkouts(response.data); 
+    
+    setWorkouts(response.data.testentry); 
   });
 }, [])
 
+/*
+useEffect(() => {
+  axios.get<WorkoutResponse>('http://localhost:8080/workout/getAllWithSets')
+  .then(response => {
+    var array = [];
+    array.push(response)
+  
+   //setWorkouts(response.data.workouts)
+  // var obj2: Workouts[] = response.data.workouts
+  // console.log(obj2)
+  
+    setIsLoaded(true);
+    //console.log(response.data.workouts)
+   // console.log(typeof(response.data.workouts))
+    
+    response.data.testentry.forEach(test => {
+      console.log(test)
+      //test.timeStarted = test.timeStarted.substring(11,16);
+      console.log("Test")
+    })
+    
+    setWorkouts(response.data); 
+  });
+}, [])
+*/
 const columns = [
-  {field: "id", headerName: "ID", width: 90},
+  {field: "workoutI", headerName: "ID", width: 90},
   {field: "workoutName", headerName: "WorkoutName", width: 200},
   {field: "timeStarted", headerName: "TimeStarted", width: 200},
   {field: "date", headerName: "Date", width: 200}
@@ -43,13 +84,15 @@ const columns = [
    
 return (
   <div className="userList">
+   
     <DataGrid
       rows={workouts}
       disableSelectionOnClick
       columns={columns}
-      pageSize={8}
+      //pageSize={8}
       checkboxSelection
     />
+    
   </div>
 )
 }

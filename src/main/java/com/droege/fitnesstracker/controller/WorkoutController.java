@@ -57,7 +57,7 @@ public class WorkoutController {
     }
  */
     @GetMapping("/getAllWithSets")
-    public WorkoutResponses getAllWithSets() {
+    public WorkoutResponse[] getAllWithSets() {
         return  workoutService.getAllWorkoutsWithSets();
     }
 
